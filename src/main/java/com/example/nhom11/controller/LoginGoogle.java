@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.nhom11.model.User;
 import com.example.nhom11.utils.RestGoogleUtil;
 
 @WebServlet(urlPatterns = "/login-google")
@@ -24,12 +23,12 @@ public class LoginGoogle extends HttpServlet {
 			dis.forward(req, resp);
 		} else {
 			String accessToken = RestGoogleUtil.getToken(code);
-            User u = RestGoogleUtil.getUser(accessToken);
+            String u = RestGoogleUtil.getUserInJson(accessToken);
 
             resp.setContentType("text/plain");
             resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().print(u.toString());
-            System.out.println(u.toString());
+            resp.getWriter().print(u);
+            System.out.println(u);
 		}
 	}
 

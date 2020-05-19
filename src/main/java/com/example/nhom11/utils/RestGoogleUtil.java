@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.example.nhom11.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -52,7 +51,7 @@ public class RestGoogleUtil {
 		return accessToken;
 	}
 
-	public static User getUser(String accessToken) throws IOException {
+	public static String getUserInJson(String accessToken) throws IOException {
         URL url = new URL(GOOGLE_LINK_GET_USER_INFO + "?access_token=" + accessToken);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -61,7 +60,7 @@ public class RestGoogleUtil {
         while ((read = br.readLine()) != null) {
             userJson += read;
         }
-        return new Gson().fromJson(userJson, User.class);
+        return userJson;
 
     }
 

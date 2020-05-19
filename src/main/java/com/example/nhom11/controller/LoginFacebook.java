@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.nhom11.model.User;
 import com.example.nhom11.utils.RestFBUtil;
 
 @WebServlet(urlPatterns = "/login-facebook")
@@ -24,12 +23,12 @@ public class LoginFacebook extends HttpServlet {
 			dis.forward(req, resp);
 		} else {
 			String accessToken = RestFBUtil.getToken(code);
-			User u = RestFBUtil.getUser(accessToken);
+			String u = RestFBUtil.getUserInJson(accessToken);
 			
 			resp.setContentType("text/plain");
 			resp.setCharacterEncoding("UTF-8");			
-			resp.getWriter().print(u.toString());
-			System.out.println(u.toString());
+			resp.getWriter().print(u);
+			System.out.println(u);
 		}
 
 	}

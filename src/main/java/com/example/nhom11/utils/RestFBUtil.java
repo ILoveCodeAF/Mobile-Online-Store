@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.example.nhom11.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -32,7 +31,7 @@ public class RestFBUtil {
 	    return accessToken;
 	  }
 	
-	public static User getUser(String accessToken) 
+	public static String getUserInJson(String accessToken) 
 			throws IOException {	// Tra ve chuoi Json voi Token da cho (Json gom id, name)		
 		URL url=new URL("https://graph.facebook.com/me?fields=id,name,email&access_token="+accessToken);
 		URLConnection con=url.openConnection();
@@ -42,7 +41,7 @@ public class RestFBUtil {
 		while((read=br.readLine())!=null) {
 			userJson+=read;
 		}
-		return new Gson().fromJson(userJson, User.class);
+		return userJson;
 		
 	}
 	
