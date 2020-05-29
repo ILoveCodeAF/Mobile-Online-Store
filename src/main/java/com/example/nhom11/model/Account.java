@@ -3,17 +3,20 @@ package com.example.nhom11.model;
 public class Account {
 	private long id;
 	private String username, password;
+	private String googleId, fbId;
 	private Role role;
 	
 	public Account() {
 		super();
 	}
 
-	public Account(long id, String username, String password, Role role) {
+	public Account(long id, String username, String password, String googleId, String fbId, Role role) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.googleId = googleId;
+		this.fbId = fbId;
 		this.role = role;
 	}
 
@@ -47,6 +50,22 @@ public class Account {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getGoogleId() {
+		return googleId;
+	}
+
+	public void setGoogleId(String googleId) {
+		this.googleId = googleId;
+	}
+
+	public String getFbId() {
+		return fbId;
+	}
+
+	public void setFbId(String fbId) {
+		this.fbId = fbId;
 	}
 
 	@Override

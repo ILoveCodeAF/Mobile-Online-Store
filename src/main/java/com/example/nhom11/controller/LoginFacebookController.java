@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.nhom11.utils.RestGoogleUtil;
+import com.example.nhom11.utils.RestFBUtil;
 
-@WebServlet(urlPatterns = "/login-google")
-public class LoginGoogle extends HttpServlet {
+@WebServlet(urlPatterns = "/login-facebook")
+public class LoginFacebookController extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,14 +27,15 @@ public class LoginGoogle extends HttpServlet {
 			RequestDispatcher dis = req.getRequestDispatcher("login.jsp");
 			dis.forward(req, resp);
 		} else {
-			String accessToken = RestGoogleUtil.getToken(code);
-            String u = RestGoogleUtil.getUserInJson(accessToken);
-
-            resp.setContentType("text/plain");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().print(u);
-            System.out.println(u);
+			String accessToken = RestFBUtil.getToken(code);
+			String u = RestFBUtil.getUserInJson(accessToken);
+			
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("UTF-8");			
+			resp.getWriter().print(u);
+			System.out.println(u);
 		}
+
 	}
 
 }

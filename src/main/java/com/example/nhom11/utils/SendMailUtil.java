@@ -14,6 +14,8 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMailUtil {
 
+	
+	//Gui mail text thong thuong
 	public static void sendMailWithPlainText(String subject, String content, String recipient) throws AddressException, MessagingException {
 		Properties p = new Properties();
 		p.put("mail.smtp.auth", "true");
