@@ -2,7 +2,6 @@ package com.example.nhom11.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -50,11 +49,5 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		String str="VA Tu\u1ea5n";
-		System.out.println(str);
-	}
-	
 	
 }

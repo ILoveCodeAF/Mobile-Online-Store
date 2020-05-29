@@ -1,13 +1,12 @@
 package com.example.nhom11.demo;
 
-import com.example.nhom11.dao.AccountDAOTuan;
-import com.example.nhom11.dao.impl.AccountDAO;
-import com.example.nhom11.model.Account;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import com.example.nhom11.utils.SendMailUtil;
 
 public class Run {
-	public static void main(String[] args) {
-		AccountDAOTuan ad=new AccountDAO();
-		Account a=ad.login("tuan", "1234");
-		System.out.println(a.toString());
+	public static void main(String[] args) throws AddressException, MessagingException {
+		SendMailUtil.sendMailWithPlainText("Dm Hieu", "chao cu", "leconghieu1998@gmail.com");
 	}
 }
