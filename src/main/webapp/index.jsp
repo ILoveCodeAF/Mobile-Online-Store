@@ -8,6 +8,6 @@
 </head>
 <body>
 	<%@ include file="/menu.jsp" %>
-	<h1>Hello ${sessionScope.account.username }</h1>
+	<h1>Hello ${sessionScope.person.name }</h1>
 </body>
 </html>

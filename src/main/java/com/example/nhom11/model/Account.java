@@ -67,12 +67,13 @@ public class Account {
 	public void setFbId(String fbId) {
 		this.fbId = fbId;
 	}
-
+	
 	@Override
 	public String toString() {
-		return id+" "+username+" "+password+" "+role.toString();
+		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", googleId=" + googleId
+				+ ", fbId=" + fbId + ", role=" + role.toString() + "]";
 	}
-	
+
 	public boolean isLogin() {		
 		if(username==null || password==null || role==null) return false;
 		if(id<=0 || username.trim().length()==0 

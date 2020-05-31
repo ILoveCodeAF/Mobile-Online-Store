@@ -7,19 +7,20 @@ public class Person {
 	private long id;
 	private String name, address, email, phone;
 	private Date dob;
+	private Account account;
 	
 	public Person() {
 		super();
 	}
 
-	public Person(long id, String name, String address, String email, String phone, Date dob) {
-		super();
+	public Person(long id, String name, String address, String email, String phone, Date dob, Account account) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.email = email;
 		this.phone = phone;
 		this.dob = dob;
+		this.account= account;
 	}
 
 	public long getId() {
@@ -69,6 +70,19 @@ public class Person {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", phone=" + phone
+				+ ", dob=" + dob + ", account=" + account.toString() + "]";
+	}
 
 }

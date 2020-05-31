@@ -8,8 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.example.nhom11.dao.CustomerDAOTuan;
+import com.example.nhom11.dao.impl.CustomerDAOTuanImpl;
+import com.example.nhom11.model.Account;
+import com.example.nhom11.model.Customer;
+import com.example.nhom11.model.Role;
 import com.example.nhom11.utils.RestGoogleUtil;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @WebServlet(urlPatterns = "/login-google")
 public class LoginGoogleController extends HttpServlet {
@@ -28,12 +36,44 @@ public class LoginGoogleController extends HttpServlet {
 			dis.forward(req, resp);
 		} else {
 			String accessToken = RestGoogleUtil.getToken(code);
-            String u = RestGoogleUtil.getUserInJson(accessToken);
+			String u = RestGoogleUtil.getUserInJson(accessToken);
 
-            resp.setContentType("text/plain");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().print(u);
-            System.out.println(u);
+			JsonObject jo = new Gson().fromJson(u, JsonObject.class);
+			Account a = new Account(0, null, null, 
+					jo.get("id").getAsString(), null, Role.CUSTOMER);
+
+			Customer c = new Customer(0, jo.get("name").getAsString(), null, 
+					jo.get("email").getAsString(), null, null, a);
+
+			// Them Customer vao DB
+			CustomerDAOTuan cd = new CustomerDAOTuanImpl();
+			long customerId = cd.checkIfGoogleAccountExist(c.getAccount().getGoogleId());
+			if (customerId == 0) { 	// Customer chua co tai khoan trong he thong
+				c = cd.add(c);		//Them Customer vao he thong
+				if (c.getId() > 0) { // Them thanh cong
+					// Them Customer vao Session
+					HttpSession session = req.getSession();
+					session.setAttribute("person", c);
+					resp.sendRedirect(req.getContextPath()+"/");
+				} else { // Them that bai
+					req.setAttribute("notification", "Tài khoản đã tồn tại");
+					req.getRequestDispatcher("login.jsp").forward(req, resp);
+					;
+				}
+
+			}
+			else {					//Customer da co tai khoan trong he thong
+				c.setId(customerId);
+				HttpSession session = req.getSession();
+				session.setAttribute("person", c);
+				resp.sendRedirect(req.getContextPath()+"/");
+			}
+
+//            resp.setContentType("text/plain");
+//            resp.setCharacterEncoding("UTF-8");
+////            resp.getWriter().print(a.toString());
+//            resp.getWriter().print(c.toString());
+//            System.out.println(c.toString());
 		}
 	}
 
