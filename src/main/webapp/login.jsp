@@ -8,7 +8,6 @@
 <title>Login</title>
 </head>
 <body>
-	<%@ include file="/menu.jsp"%>
 	<h4 style="color: red">${notification }</h4>
 	<form action="<c:url value='/login'/> " method="POST">
 		<table>

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.example.nhom11.model.Account;
+import com.example.nhom11.model.Person;
 
 @WebFilter(urlPatterns = "/*")
 public class LoginFilter implements Filter {
@@ -34,12 +34,14 @@ public class LoginFilter implements Filter {
 		String url=req.getRequestURI();		
 		String ignorePath1 = req.getContextPath()+"/login";
 		String ignorePath2 = req.getContextPath()+"/sign-up";
+		String ignorePath3 = req.getContextPath()+"/logout";
 		
-		if(!url.startsWith(ignorePath1) && !url.startsWith(ignorePath2)) { 	//Khong phai trang login 
+		if(!url.startsWith(ignorePath1) && !url.startsWith(ignorePath2)
+				&& !url.startsWith(ignorePath3)) { 	//Khong phai trang login 
 											//-> Kiem tra User Login hay chua
-			HttpSession sesison=req.getSession();
-			Account account=(Account) sesison.getAttribute("account");
-			if(account==null || !account.isLogin()) {	//Chua login				
+			HttpSession session=req.getSession();
+			Person p=(Person) session.getAttribute("person");
+			if(p==null) {	//Chua login				
 				resp.sendRedirect(req.getContextPath()+"/login");
 			}
 		}

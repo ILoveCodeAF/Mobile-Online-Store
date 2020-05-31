@@ -6,7 +6,10 @@ import javax.mail.internet.AddressException;
 import com.example.nhom11.utils.SendMailUtil;
 
 public class Run {
-	public static void main(String[] args) throws AddressException, MessagingException {
-		SendMailUtil.sendMailWithPlainText("Dm Hieu", "chao cu", "leconghieu1998@gmail.com");
+	public static void main(String[] args) throws AddressException, MessagingException{
+		
+		SendMailUtil.sendMailWithPlainText("link", "http://localhost:8080/SmartPhoneStoreOnline", 
+				"tuanvuonganhtuan@gmail.com");
+		
 	}
 }
