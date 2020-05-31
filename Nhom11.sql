@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `googleId_UNIQUE` (`googleId`),
   UNIQUE KEY `fbId_UNIQUE` (`fbId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,13 +46,13 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `address` varchar(100) NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `account_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,4 +105,4 @@ CREATE TABLE `screen` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-31 17:16:32
+-- Dump completed on 2020-05-31 23:35:32
