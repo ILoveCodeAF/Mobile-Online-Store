@@ -24,6 +24,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 		Connection con = DBUtil.getConnection();
 		try {
 			con.setAutoCommit(false);
+		} catch (SQLException e2) {
+		}
+		try {
 
 			ps = con.prepareStatement(sqlAccount, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, customer.getAccount().getUsername());

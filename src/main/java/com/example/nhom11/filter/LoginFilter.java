@@ -35,9 +35,15 @@ public class LoginFilter implements Filter {
 		String ignorePath1 = req.getContextPath()+"/login";
 		String ignorePath2 = req.getContextPath()+"/sign-up";
 		String ignorePath3 = req.getContextPath()+"/logout";
+		String ignorePath4 = req.getContextPath()+"/notification";
+		String ignorePath5 = req.getContextPath()+"/verify";
 		
-		if(!url.startsWith(ignorePath1) && !url.startsWith(ignorePath2)
-				&& !url.startsWith(ignorePath3)) { 	//Khong phai trang login 
+		if(!url.startsWith(ignorePath1) 
+				&& !url.startsWith(ignorePath2)
+				&& !url.startsWith(ignorePath3) 
+				&& !url.startsWith(ignorePath4)
+				&& !url.startsWith(ignorePath5)
+				) { 	//Khong phai trang login 
 											//-> Kiem tra User Login hay chua
 			HttpSession session=req.getSession();
 			Person p=(Person) session.getAttribute("person");

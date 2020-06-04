@@ -26,7 +26,7 @@ a:hover {
 <body>
 	<ul class="menu">
 		<li><a href='<c:url value='/' />'>Home</a></li>
-		<li><a href='<c:url value='/cart' />'>Home</a></li>
+		<li><a href='<c:url value='/cart' />'>Cart</a></li>
 		<li><a href='<c:url value='/logout' />'>Logout</a></li>
 	</ul>
 </body>
