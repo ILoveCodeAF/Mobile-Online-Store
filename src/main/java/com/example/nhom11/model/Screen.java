@@ -49,5 +49,11 @@ public class Screen {
 	public void setSize(float size) {
 		this.size = size;
 	}
+
+	@Override
+	public String toString() {
+		return "Screen [id=" + id + ", technology=" + technology + ", resolution=" + resolution + ", size=" + size
+				+ "]";
+	}
 	
 }
