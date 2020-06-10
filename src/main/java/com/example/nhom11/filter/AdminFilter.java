@@ -1,7 +1,7 @@
 package com.example.nhom11.filter;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
+import java.net.UnknownServiceException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,7 +33,7 @@ public class AdminFilter implements Filter {
 		Person person = (Person) session.getAttribute("person");
 		
 		if(person==null || person.getAccount().getRole()!=Role.ADMIN) {	//Neu nguoi dung khong co quyen admin
-			throw new AccessDeniedException("Unauthorized");
+			throw new UnknownServiceException("Unauthorized") ;
 		}
 		else {
 			chain.doFilter(request, response);

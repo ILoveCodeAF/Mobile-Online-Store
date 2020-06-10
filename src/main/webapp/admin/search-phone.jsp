@@ -33,6 +33,7 @@ width: 100px;
 
 </head>
 <body>
+	<%@ include file="/admin/admin-menu.jsp" %>
 	<h1>Search Phone</h1>
 	<form action="<c:url value='/admin/search-phone' />" method="POST" >
 		<input placeholder="Enter Phone name or Manufacturer" name="key" required="required" value="${key }" >

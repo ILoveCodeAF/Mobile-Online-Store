@@ -49,7 +49,8 @@ public class LoginController extends HttpServlet {
 		else {						//Dang nhap thanh cong
 			HttpSession session=req.getSession();
 			session.setAttribute("person", person);
-			resp.sendRedirect(req.getContextPath());
+			
+			resp.sendRedirect(req.getContextPath()+"/");
 		}
 		
 		

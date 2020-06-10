@@ -30,6 +30,8 @@ public class LoginFilter implements Filter {
 		
 		HttpServletRequest req=(HttpServletRequest) request;		
 		HttpServletResponse resp=(HttpServletResponse) response;
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		
 		String url=req.getRequestURI();		
 		String ignorePath1 = req.getContextPath()+"/login";
@@ -49,6 +51,8 @@ public class LoginFilter implements Filter {
 			Person p=(Person) session.getAttribute("person");
 			if(p==null) {	//Chua login				
 				resp.sendRedirect(req.getContextPath()+"/login");
+			}
+			else {
 			}
 		}
 		

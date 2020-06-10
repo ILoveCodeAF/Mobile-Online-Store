@@ -9,13 +9,17 @@ import com.example.nhom11.dao.AccountDAOTuan;
 import com.example.nhom11.model.Account;
 import com.example.nhom11.model.Person;
 import com.example.nhom11.model.Role;
+import com.example.nhom11.utils.ConnectionPool;
 import com.example.nhom11.utils.DBUtil;
 
 public class AccountDAO implements AccountDAOTuan {
 
 	@Override
 	public Person login(String username, String password) {
-		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		
+//		Connection con = DBUtil.getConnection();
 		Account account = null;
 		Person person = null;
 		

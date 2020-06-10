@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import com.example.nhom11.dao.CustomerDAOTuan;
 import com.example.nhom11.model.Customer;
+import com.example.nhom11.utils.ConnectionPool;
 import com.example.nhom11.utils.DBUtil;
 
 public class CustomerDAOTuanImpl implements CustomerDAOTuan {
@@ -21,7 +22,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 		String sqlCustomer = "INSERT INTO Customer(name, address, email, dob, phone, account_id) "
 				+ "VALUES(?,?,?,?,?,?)";
 
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 		try {
 			con.setAutoCommit(false);
 		} catch (SQLException e2) {
@@ -87,7 +90,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
 		PreparedStatement ps;
 		ResultSet rs;
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 
 		try {
 			ps = con.prepareStatement(sql);
@@ -115,7 +120,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
 		PreparedStatement ps;
 		ResultSet rs;
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 
 		try {
 			ps = con.prepareStatement(sql);

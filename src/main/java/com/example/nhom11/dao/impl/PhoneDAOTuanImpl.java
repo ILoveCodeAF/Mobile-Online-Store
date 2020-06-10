@@ -10,6 +10,7 @@ import java.util.List;
 import com.example.nhom11.dao.PhoneDAOTuan;
 import com.example.nhom11.model.Phone;
 import com.example.nhom11.model.Screen;
+import com.example.nhom11.utils.ConnectionPool;
 import com.example.nhom11.utils.DBUtil;
 
 public class PhoneDAOTuanImpl implements PhoneDAOTuan {
@@ -19,7 +20,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		String sql = "INSERT INTO phone(name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, os, "
 				+ "battery, image, price, screen_id) "
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";		
-		Connection con=DBUtil.getConnection();
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
@@ -105,7 +108,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 				+ "(phone.name LIKE ? OR phone.manufacturer LIKE ?)";
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		Connection con=DBUtil.getConnection();
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 		
 		try {
 			ps=con.prepareStatement(sql);
@@ -153,7 +158,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		Screen s=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		Connection con=DBUtil.getConnection();
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 		
 		try {
 			ps=con.prepareStatement(sql);
@@ -191,6 +198,145 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		
 		return p;
 		
+	}
+
+
+	@Override
+	public List<Phone> searchWithPagination(String key, int page, int eachPage) {
+		int from = (page-1)*eachPage;
+		int to = from +10;
+		String keySearch = "%"+key+"%";
+		List<Phone> phones=new ArrayList<>();
+		
+		String sql = "SELECT phone.id as id, name, manufacturer, rom , ram, cpu,  os, image, price, size, resolution, technology "
+				+ "FROM phone, screen "
+				+ "WHERE phone.screen_id=screen.id AND "
+				+ "(phone.name LIKE ? OR phone.manufacturer LIKE ?) "
+				+ "LIMIT ?, ?";
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, keySearch);
+			ps.setString(2, keySearch);
+			ps.setInt(3, from);
+			ps.setInt(4, to);
+			
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Phone p=new Phone();
+				Screen s=new Screen();
+				p.setId(rs.getLong("id"));
+				p.setName(rs.getString("name"));
+				p.setManufacturer(rs.getString("manufacturer"));
+				p.setRom(rs.getInt("rom"));
+				p.setRam(rs.getInt("ram"));
+				p.setCpu(rs.getString("cpu"));
+				p.setOs(rs.getString("os"));
+				p.setImage(rs.getString("image"));
+				p.setPrice(rs.getFloat("price"));
+				s.setSize(rs.getFloat("size"));
+				s.setResolution(rs.getString("resolution"));
+				s.setTechnology(rs.getString("technology"));
+				p.setScreen(s);
+				phones.add(p);				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtil.closeConnection(con);
+		}		
+		return phones;
+	}
+
+
+	@Override
+	public List<Phone> getNewestPhones(int quantity) {
+		List<Phone> phones=new ArrayList<>();
+		
+		String sql = "SELECT phone.id as id, name, manufacturer, rom , ram, cpu,  os, image, price, size, resolution, technology "
+				+ "FROM phone, screen "
+				+ "WHERE phone.screen_id=screen.id "
+				+ "ORDER BY id DESC "
+				+ "LIMIT ?, ?";
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, 0);
+			ps.setInt(2, quantity);
+			
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				Phone p=new Phone();
+				Screen s=new Screen();
+				p.setId(rs.getLong("id"));
+				p.setName(rs.getString("name"));
+				p.setManufacturer(rs.getString("manufacturer"));
+				p.setRom(rs.getInt("rom"));
+				p.setRam(rs.getInt("ram"));
+				p.setCpu(rs.getString("cpu"));
+				p.setOs(rs.getString("os"));
+				p.setImage(rs.getString("image"));
+				p.setPrice(rs.getFloat("price"));
+				s.setSize(rs.getFloat("size"));
+				s.setResolution(rs.getString("resolution"));
+				s.setTechnology(rs.getString("technology"));
+				p.setScreen(s);
+				phones.add(p);				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtil.closeConnection(con);
+		}		
+		return phones;
+	}
+
+	@Override
+	public int getTotalPage(String key, int eachPage) {
+		int count=0;
+		String keySearch = "%"+key+"%";
+		String sql = "SELECT COUNT(id) FROM phone "
+				+ "WHERE name LIKE ? OR manufacturer LIKE ?";
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		
+		try {
+			ps=con.prepareStatement(sql);
+			ps.setString(1, keySearch);
+			ps.setString(2, keySearch);
+			
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				
+				int total = rs.getInt(1);
+				if(total%eachPage==0) count = total/eachPage;
+				else count = total/eachPage+1;
+			}
+			
+		} catch (SQLException e) {
+		}
+		
+		
+		return count;
 	}
 	
 

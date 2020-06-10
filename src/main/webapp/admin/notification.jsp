@@ -7,6 +7,7 @@
 <title>Notification</title>
 </head>
 <body>
+	<%@ include file="/admin/admin-menu.jsp" %>
 	<h4 style="color: red" >${notification }</h4>
 </body>
 </html>
