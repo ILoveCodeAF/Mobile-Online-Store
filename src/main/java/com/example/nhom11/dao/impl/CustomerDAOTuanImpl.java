@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import com.example.nhom11.dao.CustomerDAOTuan;
 import com.example.nhom11.model.Customer;
 import com.example.nhom11.utils.ConnectionPool;
-import com.example.nhom11.utils.DBUtil;
 
 public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
@@ -71,8 +70,6 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			} catch (SQLException e1) {
 			}
 
-		} finally {
-			DBUtil.closeConnection(con);
 		}
 
 		return customer;
@@ -103,10 +100,7 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			}
 		} catch (SQLException e) {
 
-		} finally {
-			DBUtil.closeConnection(con);
 		}
-
 		return result;
 	}
 
@@ -133,8 +127,6 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			}
 		} catch (SQLException e) {
 
-		} finally {
-			DBUtil.closeConnection(con);
 		}
 
 		return result;

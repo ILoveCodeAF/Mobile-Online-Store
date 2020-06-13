@@ -11,7 +11,6 @@ import com.example.nhom11.dao.PhoneDAOTuan;
 import com.example.nhom11.model.Phone;
 import com.example.nhom11.model.Screen;
 import com.example.nhom11.utils.ConnectionPool;
-import com.example.nhom11.utils.DBUtil;
 
 public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 
@@ -63,9 +62,6 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 				con.rollback();
 			} catch (SQLException e1) {
 			}
-		}
-		finally {
-			DBUtil.closeConnection(con);
 		}
 		
 		return phone;
@@ -141,9 +137,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			DBUtil.closeConnection(con);
-		}		
+			
 		return phones;
 	}
 	
@@ -192,9 +186,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 			
 		} catch (SQLException e) {
 		}
-		finally {
-			DBUtil.closeConnection(con);
-		}
+		
 		
 		return p;
 		
@@ -250,9 +242,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			DBUtil.closeConnection(con);
-		}		
+				
 		return phones;
 	}
 
@@ -301,9 +291,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			DBUtil.closeConnection(con);
-		}		
+				
 		return phones;
 	}
 
