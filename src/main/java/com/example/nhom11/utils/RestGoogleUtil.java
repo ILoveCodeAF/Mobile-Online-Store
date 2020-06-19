@@ -14,7 +14,7 @@ public class RestGoogleUtil {
 
 	private static final String GOOGLE_CLIENT_ID = "660596394116-n5kd2jlllnt70f0al7r40ncjmvi9kum5.apps.googleusercontent.com";
 	private static final String GOOGLE_KEY_SECRET = "mcbQ3cWrooAs5Z-3Dkw6UJ-o";
-	private static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/SmartPhoneStoreOnline/login-google";
+	private static final String GOOGLE_REDIRECT_URI = "http://"+Server.IP+":8080/SmartPhoneStoreOnline/login-google";
 	private static final String GOOGLE_LINK_GET_TOKEN = "https://oauth2.googleapis.com/token";
 	private static final String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo";
 	private static final String GOOGLE_GRANT_TYPE = "authorization_code";

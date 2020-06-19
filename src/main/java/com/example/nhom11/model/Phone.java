@@ -4,8 +4,9 @@ public class Phone {
 	
 	private long id;
 	private String name, manufacturer;
-	private String rom, ram, cpu;
-	private String frontCamera, behindCamera;
+	private int rom, ram;
+	private String cpu;
+	private float frontCamera, behindCamera;
 	private String os;
 	private int battery;
 	private String image;
@@ -14,10 +15,11 @@ public class Phone {
 	
 	public Phone() {
 		super();
+		screen = new Screen();
 	}
 
-	public Phone(long id, String name, String manufacturer, String rom, String ram, String cpu, String frontCamera,
-			String behindCamera, String os, int battery, String image, Screen screen, float price) {
+	public Phone(long id, String name, String manufacturer, int rom, int ram, String cpu, float frontCamera,
+			float behindCamera, String os, int battery, String image, Screen screen, float price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -58,19 +60,20 @@ public class Phone {
 		this.manufacturer = manufacturer;
 	}
 
-	public String getRom() {
+
+	public int getRom() {
 		return rom;
 	}
 
-	public void setRom(String rom) {
+	public void setRom(int rom) {
 		this.rom = rom;
 	}
 
-	public String getRam() {
+	public int getRam() {
 		return ram;
 	}
 
-	public void setRam(String ram) {
+	public void setRam(int ram) {
 		this.ram = ram;
 	}
 
@@ -82,19 +85,20 @@ public class Phone {
 		this.cpu = cpu;
 	}
 
-	public String getFrontCamera() {
+
+	public float getFrontCamera() {
 		return frontCamera;
 	}
 
-	public void setFrontCamera(String frontCamera) {
+	public void setFrontCamera(float frontCamera) {
 		this.frontCamera = frontCamera;
 	}
 
-	public String getBehindCamera() {
+	public float getBehindCamera() {
 		return behindCamera;
 	}
 
-	public void setBehindCamera(String behindCamera) {
+	public void setBehindCamera(float behindCamera) {
 		this.behindCamera = behindCamera;
 	}
 
@@ -142,7 +146,29 @@ public class Phone {
 	public String toString() {
 		return "Phone [id=" + id + ", name=" + name + ", manufacturer=" + manufacturer + ", rom=" + rom + ", ram=" + ram
 				+ ", cpu=" + cpu + ", frontCamera=" + frontCamera + ", behindCamera=" + behindCamera + ", os=" + os
-				+ ", battery=" + battery + ", image=" + image + ", screen=" + screen + ", price=" + price + "]";
+				+ ", battery=" + battery + ", image=" + image + ", screen=" + screen.toString() + ", price=" + price + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Phone other = (Phone) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

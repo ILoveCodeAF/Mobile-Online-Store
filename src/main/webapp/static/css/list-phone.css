@@ -1,0 +1,61 @@
+.phone {
+	width: 200px;
+	margin-left: 15px;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.phone .img {
+	width: inherit;
+	height: 240px;
+	position: relative;
+}
+
+.phone .img img {
+	max-width: 200px;
+	max-height: 200px;
+	position: absolute;
+	bottom: 0px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.phone:hover .img img {
+	transition: all .4s;
+	transform: translate(-50%, -10%);
+}
+
+.phone .detail {
+	padding: 5px 0px;
+	width: inherit;
+	text-align: center;
+}
+
+.phone .detail .name {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: black;
+	font-weight: bold;
+}
+.phone:hover .detail .name{
+	transition: all .4s;
+	color: #00cc33;
+}
+
+.phone .detail .memory {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: black;
+}
+
+.phone .detail .price {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: rgb(228, 64, 64);
+	font-weight: bold;
+}
+
+.than {
+	width: 1110px;
+	min-width: 800px;
+	margin: 0 auto;
+	box-shadow: 0px 0px 3px #eeeeee;
+	display: block;
+}

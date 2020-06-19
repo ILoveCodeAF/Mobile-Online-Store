@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import com.example.nhom11.dao.CustomerDAOTuan;
 import com.example.nhom11.model.Customer;
-import com.example.nhom11.utils.DBUtil;
+import com.example.nhom11.utils.ConnectionPool;
 
 public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
@@ -21,9 +21,14 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 		String sqlCustomer = "INSERT INTO Customer(name, address, email, dob, phone, account_id) "
 				+ "VALUES(?,?,?,?,?,?)";
 
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 		try {
 			con.setAutoCommit(false);
+		} catch (SQLException e2) {
+		}
+		try {
 
 			ps = con.prepareStatement(sqlAccount, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, customer.getAccount().getUsername());
@@ -65,8 +70,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			} catch (SQLException e1) {
 			}
 
-		} finally {
-			DBUtil.closeConnection(con);
+		}
+		finally {
+			pool.closeConnection(con);
 		}
 
 		return customer;
@@ -84,7 +90,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
 		PreparedStatement ps;
 		ResultSet rs;
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 
 		try {
 			ps = con.prepareStatement(sql);
@@ -95,10 +103,10 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			}
 		} catch (SQLException e) {
 
-		} finally {
-			DBUtil.closeConnection(con);
 		}
-
+		finally {
+			pool.closeConnection(con);
+		}
 		return result;
 	}
 
@@ -112,7 +120,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 
 		PreparedStatement ps;
 		ResultSet rs;
-		Connection con = DBUtil.getConnection();
+//		Connection con = DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
 
 		try {
 			ps = con.prepareStatement(sql);
@@ -122,9 +132,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
-
-		} finally {
-			DBUtil.closeConnection(con);
+		}
+		finally {
+			pool.closeConnection(con);
 		}
 
 		return result;

@@ -13,7 +13,7 @@ public class RestFBUtil {
 
 	private static final String FACEBOOK_APP_ID = "2925420967573361";
 	private static final String FACEBOOK_APP_SECRET = "43b9ce081d43ce0d27fb997418d328a7";
-	private static final String FACEBOOK_REDIRECT_URL = "http://localhost:8080/SmartPhoneStoreOnline/login-facebook";
+	private static final String FACEBOOK_REDIRECT_URL = "https://"+Server.IP+":"+Server.PORT+"/SmartPhoneStoreOnline/login-facebook";
 	private static final String FACEBOOK_LINK_GET_TOKEN = "https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s";
 
 	public static String getToken(final String code) throws IOException {

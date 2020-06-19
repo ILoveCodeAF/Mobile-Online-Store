@@ -35,6 +35,7 @@ public class LoginGoogleController extends HttpServlet {
 			RequestDispatcher dis = req.getRequestDispatcher("login.jsp");
 			dis.forward(req, resp);
 		} else {
+			//Lay thong tin Customer
 			String accessToken = RestGoogleUtil.getToken(code);
 			String u = RestGoogleUtil.getUserInJson(accessToken);
 
@@ -45,7 +46,6 @@ public class LoginGoogleController extends HttpServlet {
 			Customer c = new Customer(0, jo.get("name").getAsString(), null, 
 					jo.get("email").getAsString(), null, null, a);
 
-			// Them Customer vao DB
 			CustomerDAOTuan cd = new CustomerDAOTuanImpl();
 			long customerId = cd.checkIfGoogleAccountExist(c.getAccount().getGoogleId());
 			if (customerId == 0) { 	// Customer chua co tai khoan trong he thong
@@ -69,11 +69,6 @@ public class LoginGoogleController extends HttpServlet {
 				resp.sendRedirect(req.getContextPath()+"/");
 			}
 
-//            resp.setContentType("text/plain");
-//            resp.setCharacterEncoding("UTF-8");
-////            resp.getWriter().print(a.toString());
-//            resp.getWriter().print(c.toString());
-//            System.out.println(c.toString());
 		}
 	}
 

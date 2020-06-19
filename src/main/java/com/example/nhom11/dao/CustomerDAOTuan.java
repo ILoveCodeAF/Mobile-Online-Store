@@ -5,6 +5,7 @@ import com.example.nhom11.model.Customer;
 public interface CustomerDAOTuan {
 	
 	//Them moi mot Customer vao DB
+	//Neu them thanh cong se tra ve Customer co Id la Id vua moi them
 	public Customer add(Customer customer);
 	
 	//Tra ve id cua Customer neu ton tai

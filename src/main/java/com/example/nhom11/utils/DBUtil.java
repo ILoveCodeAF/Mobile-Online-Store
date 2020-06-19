@@ -18,8 +18,7 @@ public class DBUtil {
 		try {
 			p.load(is);
 			is.close();
-		} catch (IOException e) {
-			
+		} catch (IOException e) {			
 		}
 	}
 	
