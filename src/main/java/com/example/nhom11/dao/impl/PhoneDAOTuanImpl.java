@@ -63,6 +63,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 			} catch (SQLException e1) {
 			}
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 		
 		return phone;
 	}
@@ -137,6 +140,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 			
 		return phones;
 	}
@@ -185,6 +191,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 			}
 			
 		} catch (SQLException e) {
+		}
+		finally {
+			pool.closeConnection(con);
 		}
 		
 		
@@ -242,6 +251,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 				
 		return phones;
 	}
@@ -291,6 +303,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 				
 		return phones;
 	}
@@ -321,6 +336,9 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 			}
 			
 		} catch (SQLException e) {
+		}
+		finally {
+			pool.closeConnection(con);
 		}
 		
 		

@@ -30,7 +30,6 @@ public class ConnectionPool {
 		ds.setUsername(p.getProperty("db.username"));
 		ds.setPassword(p.getProperty("db.password"));
 		ds.setInitialSize(2);
-		ds.setMinIdle(2);
 		ds.setMaxActive(5);
 	}
 
@@ -47,6 +46,17 @@ public class ConnectionPool {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void closeConnection(Connection con) {
+		if(con!=null) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static void main(String[] args) {

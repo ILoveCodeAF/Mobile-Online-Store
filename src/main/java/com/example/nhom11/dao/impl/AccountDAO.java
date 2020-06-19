@@ -71,6 +71,9 @@ public class AccountDAO implements AccountDAOTuan {
 
 		} catch (Exception e) {
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 		return person;
 	}
 
