@@ -5,31 +5,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<c:url value='/static/css/menu.css' />" >
+<link rel="stylesheet" href="<c:url value='/static/css/menu.css' />">
 <script src="<c:url value='/static/js/fontawesome.js' />"></script>
 <script src="<c:url value='/static/js/jquery.js' />"></script>
-	
+
 <title>Insert title here</title>
 </head>
 <body>
 
 	<section class="dau">
 		<div class="menu">
-			<a class="item" href='<c:url value='/' />'>Home</a> <a class="item"
-				href='<c:url value='/cart' />'>Cart</a> <a class="item"
-				href='<c:url value='/admin' />'>Admin</a> <i id="logout"
-				class="item logout fa fa-caret-down" aria-hidden="true">
+			<a class="item" href='<c:url value='/' />'>Home</a> 
+			<c:choose>
+				<c:when test="${sessionScope.person.account.role=='CUSTOMER' }"><a class="item"	href='<c:url value='/cart' />'>Cart</a></c:when>
+				<c:when test="${sessionScope.person.account.role=='ADMIN' }"><a class="item" href='<c:url value='/admin' />'>Admin</a></c:when>
+			</c:choose>			
+			
+			<i id="logout" class="item logout fa fa-caret-down" aria-hidden="true">
 				<div id="myDropdown" class="dropdown-content">
 					<a href='<c:url value='/logout' />'>Logout</a>
 				</div>
 			</i>
 		</div>
 
-		<form class="search" action="<c:url value='/search-phone' />" method="GET">
+		<form class="search" action="<c:url value='/search-phone' />"
+			method="GET">
 			<input class="text" name="key" value="${key }"
-				placeholder="Search Phone ...">
-			<input name="page" value="1" type="hidden" >
-			<input class="submit" type="submit" value="Search">
+				placeholder="Search Phone ..."> <input name="page" value="1"
+				type="hidden"> <input class="submit" type="submit"
+				value="Search">
 
 		</form>
 		<h4 style="margin-top: -20px">Hello ${sessionScope.person.name }</h4>

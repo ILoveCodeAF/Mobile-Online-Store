@@ -71,6 +71,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 			}
 
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 
 		return customer;
 
@@ -101,6 +104,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 		} catch (SQLException e) {
 
 		}
+		finally {
+			pool.closeConnection(con);
+		}
 		return result;
 	}
 
@@ -126,7 +132,9 @@ public class CustomerDAOTuanImpl implements CustomerDAOTuan {
 				result = rs.getLong(1);
 			}
 		} catch (SQLException e) {
-
+		}
+		finally {
+			pool.closeConnection(con);
 		}
 
 		return result;

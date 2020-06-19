@@ -61,7 +61,6 @@ public class ConnectionPool {
 
 	public static void main(String[] args) {
 		ConnectionPool pool = ConnectionPool.getInstance();
-
 		Connection con = pool.getConnection();
 		if (con == null)
 			System.out.println("Fail");

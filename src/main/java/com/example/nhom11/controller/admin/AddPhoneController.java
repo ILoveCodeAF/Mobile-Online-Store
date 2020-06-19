@@ -94,7 +94,6 @@ public class AddPhoneController extends HttpServlet {
 		} else if (part.getSize() > maxUploadSize) {
 			notification = "File break the Upload size limit";
 		} else {
-
 			try {
 				// Doc file
 				BufferedInputStream bis = new BufferedInputStream(part.getInputStream());
