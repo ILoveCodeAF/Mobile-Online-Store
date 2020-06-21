@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Add New Phone</title>
+	<meta charset="UTF-8">
+	<title>Add New Phone</title>
+	<!-- <script src="static/js/jquery.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 </head>
 <body>
 	<%@include file="/admin/admin-menu.jsp"%>
@@ -63,9 +65,31 @@
 			</tr>
 			<tr>
 				<td>Image:</td>
-				<td><input name="image" required="required" type="file">
+				<td><input name="image" id="image" required="required" type="file">
 					(JPG, PNG)</td>
 			</tr>
+			<script type="text/javascript">
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img').attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#image").change(function(){
+                    readURL(this);
+                });
+            </script>
+            <tr>
+                <td colspan="2">
+                    <img id="img" name="img" alt="image" src="<c:url value='${phone.image }' />" style="max-height:500px;max-width:500px;">
+                </td>
+            </tr>
 			<tr>
 				<td>Screen Size :</td>
 				<td><input name="screen.size" required="required"

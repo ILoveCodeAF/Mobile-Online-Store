@@ -70,7 +70,7 @@ width: 100px;
 				<td>${phone.screen.size } (inch)<br>${phone.screen.resolution }<br>${phone.screen.technology }</td>
 				<td><img alt="image" src="<c:url value='${phone.image }' />"></td>
 				<td>${phone.price }</td>
-				<td><a href="edit-phone?id=${phone.id }" >Edit</a></td>
+				<td><a href="${pageContext.request.contextPath}/admin/edit-phone?id=${phone.id }" >Edit</a></td>
 				<td><a href="delete-phone?id=${phone.id }" >Delete</a></td>
 			</c:forEach>
 		</tbody>
