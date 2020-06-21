@@ -12,5 +12,14 @@
     <error-code>500</error-code>
     <location>/error500.jsp</location>
   </error-page>
-
+  <servlet>
+    <description></description>
+    <display-name>DeletePhoneController</display-name>
+    <servlet-name>DeletePhoneController</servlet-name>
+    <servlet-class>com.example.nhom11.controller.admin.DeletePhoneController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletePhoneController</servlet-name>
+    <url-pattern>/DeletePhoneController</url-pattern>
+  </servlet-mapping>
 </web-app>
