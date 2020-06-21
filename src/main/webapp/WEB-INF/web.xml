@@ -4,23 +4,13 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>UpdatePhoneController</display-name>
-    <servlet-name>UpdatePhoneController</servlet-name>
-    <servlet-class>com.example.nhom11.controller.admin.UpdatePhoneController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpdatePhoneController</servlet-name>
-    <url-pattern>/UpdatePhoneController</url-pattern>
-  </servlet-mapping>
-  
   <error-page>
-  	<error-code>404</error-code>
-  	<location>/error404.jsp</location>
+    <error-code>404</error-code>
+    <location>/error404.jsp</location>
   </error-page>
   <error-page>
-  	<error-code>500</error-code>
-  	<location>/error500.jsp</location>
+    <error-code>500</error-code>
+    <location>/error500.jsp</location>
   </error-page>
+
 </web-app>

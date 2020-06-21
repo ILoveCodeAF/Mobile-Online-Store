@@ -151,7 +151,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 	@Override
 	public Phone getById(long id) {
 		String sql = "SELECT phone.id as id, name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, "
-				+ "os, battery, image, price, size, technology, resolution "
+				+ "os, battery, image, price, size, technology, resolution, screen.id as screen_id "
 				+ "FROM phone, screen "
 				+ "WHERE phone.screen_id = screen.id AND phone.id = ?";
 		Phone p=null;
@@ -171,6 +171,7 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 				p=new Phone();
 				s=new Screen();
 				
+				s.setId(rs.getLong("screen_id"));
 				s.setSize(rs.getFloat("size"));
 				s.setTechnology(rs.getString("technology"));
 				s.setResolution(rs.getString("resolution"));
@@ -344,6 +345,151 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
 		
 		return count;
 	}
+
+	private boolean updateScreen(Screen screen, Connection con) {
+		String sql = "UPDATE screen"
+				+ " SET size = ?, technology = ?, resolution = ?"
+				+ " WHERE id = ?";
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			ps=con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setFloat(1, screen.getSize());
+			ps.setString(2, screen.getTechnology());
+			ps.setString(3, screen.getResolution());
+			ps.setLong(4, screen.getId());
+			
+			int success = ps.executeUpdate();
+			if(success > 0)
+				return true;
+						
+		} catch (SQLException e) {
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean update(Phone phone) {
+		String sql = "UPDATE phone"
+				+ " SET name = ?, manufacturer = ?, rom = ?, ram = ?, cpu = ?, frontCamera = ?, behindCamera = ?, os = ?, "
+				+ "battery = ?, image = ?, price = ?, screen_id = ? "
+				+ "WHERE id = ?";		
+//		Connection con=DBUtil.getConnection();
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			con.setAutoCommit(false);
+		} catch (SQLException e) {
+		}
+		
+		try {
+			//Update man hinh vao DB
+			updateScreen(phone.getScreen(), con);
+			
+			ps=con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, phone.getName());
+			ps.setString(2, phone.getManufacturer());
+			ps.setInt(3, phone.getRom());
+			ps.setInt(4, phone.getRam());
+			ps.setString(5, phone.getCpu());
+			ps.setFloat(6, phone.getFrontCamera());
+			ps.setFloat(7, phone.getBehindCamera());
+			ps.setString(8, phone.getOs());
+			ps.setInt(9, phone.getBattery());
+			ps.setString(10, phone.getImage());
+			ps.setFloat(11, phone.getPrice());
+			ps.setLong(12, phone.getScreen().getId());
+			ps.setLong(13, phone.getId());
+			
+			int success = ps.executeUpdate();
+			if(success > 0) {
+				con.commit();
+				return true;
+			}
+
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+			}
+		}
+		finally {
+			pool.closeConnection(con);
+		}
+		
+		return false;
+	}
+
+	private boolean deleteScreen(Screen screen, Connection con) {
+		String sql = "DELETE FROM screen"
+				+ " WHERE id = ?";
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			ps=con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, screen.getId());
+			
+			int success = ps.executeUpdate();
+			if(success > 0)
+				return true;
+						
+		} catch (SQLException e) {
+		}
+		
+		return false;
+	}
 	
+	@Override
+	public boolean delete(Phone phone) {
+		// TODO Auto-generated method stub
+		String sql = "DELETE FROM phone WHERE id = ?";
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection con=pool.getConnection();
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			con.setAutoCommit(false);
+		} catch (SQLException e) {
+		}
+		
+		try {
+			//Delete man hinh khoi DB
+			deleteScreen(phone.getScreen(), con);
+			
+			
+			ps=con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, phone.getId());
+			
+			int success = ps.executeUpdate();
+			if(success > 0) {
+				con.commit();
+				return true;
+			}
+
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+			}
+		}
+		finally {
+			pool.closeConnection(con);
+		}
+		
+		return false;
+	}
+//	public static void main(String[] args) {
+//		Phone phone = new Phone(0, "dm", "hlc", 1, 1, "cpu", (float)1, (float)1, "linux", 1, "imgs",
+//				new Screen(0, "h", "revo", (float)1), (float)1.0);
+//		PhoneDAOTuan dao = new PhoneDAOTuanImpl();
+//		dao.add(phone);
+//	}
 
 }

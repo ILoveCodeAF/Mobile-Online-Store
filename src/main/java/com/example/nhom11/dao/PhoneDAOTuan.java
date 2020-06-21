@@ -19,4 +19,7 @@ public interface PhoneDAOTuan {
 	
 	public Phone getById(long id);
 	
+	public boolean update(Phone phone);
+	public boolean delete(Phone phone);
+	
 }
