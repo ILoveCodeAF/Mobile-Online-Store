@@ -214,13 +214,14 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
     @Override
     public boolean update(Phone phone) {
         boolean result = false;
-        String sql = "UPDATE phone "
+        String sql1 = "UPDATE phone "
                 + "SET name = ?, manufacturer = ?, rom = ?, ram = ?, cpu = ?, frontCamera = ?, behindCamera = ?, os = ?, "
                 + "battery = ?, price = ?, screen_id = ? "
                 + "WHERE id = ?";
-        String sqlImage = "UPDATE phone " +
-                "SET image = ? " +
-                "WHERE id = ?";
+        String sql2 = "UPDATE phone "
+                + "SET name = ?, manufacturer = ?, rom = ?, ram = ?, cpu = ?, frontCamera = ?, behindCamera = ?, os = ?, "
+                + "battery = ?, price = ?, screen_id = ?, image = ? "
+                + "WHERE id = ?";
 //		Connection con=DBUtil.getConnection();
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection con=pool.getConnection();
@@ -235,8 +236,15 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
         try {
             //Update man hinh vao DB
             updateScreen(phone.getScreen(), con);
-
-            ps=con.prepareStatement(sql);
+            if(phone.getImage()!=null && !phone.getImage().trim().isEmpty()){
+                ps=con.prepareStatement(sql2);
+                ps.setString(12, phone.getImage());
+                ps.setLong(13, phone.getId());
+            }
+            else{
+                ps=con.prepareStatement(sql1);
+                ps.setLong(12, phone.getId());
+            }
             ps.setString(1, phone.getName());
             ps.setString(2, phone.getManufacturer());
             ps.setInt(3, phone.getRom());
@@ -248,14 +256,6 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
             ps.setInt(9, phone.getBattery());
             ps.setFloat(10, phone.getPrice());
             ps.setLong(11, phone.getScreen().getId());
-            ps.setLong(12, phone.getId());
-
-            if(phone.getImage()!=null && !phone.getImage().trim().isEmpty()){
-                ps = con.prepareStatement(sqlImage);
-                ps.setString(1, phone.getImage());
-                ps.setLong(2, phone.getId());
-                ps.executeUpdate();
-            }
 
             ps.executeUpdate();
             con.commit();

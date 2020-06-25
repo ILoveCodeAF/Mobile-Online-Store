@@ -35,7 +35,6 @@ public class Cart {
 	public void setPhones(Set<PhoneSelling> phones) {
 		this.phones = phones;
 	}
-	
 	public void addPhone(PhoneSelling phone) {
 		this.getPhones().add(phone);
 	}

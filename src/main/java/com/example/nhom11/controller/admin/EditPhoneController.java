@@ -23,7 +23,7 @@ public class EditPhoneController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id =  Long.parseLong(req.getParameter("id"));
+        long id = Long.parseLong(req.getParameter("id"));
         PhoneDAOTuan phoneDAO = new PhoneDAOTuanImpl();
         Phone phone = phoneDAO.getById(id);
         req.setAttribute("phone", phone);
@@ -32,7 +32,7 @@ public class EditPhoneController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id= Long.parseLong(req.getParameter("id"));
+        long id = Long.parseLong(req.getParameter("id"));
         long screenId = Long.parseLong(req.getParameter("screenId"));
         //Add phone Information
         String name = req.getParameter("name");
@@ -51,8 +51,7 @@ public class EditPhoneController extends HttpServlet {
             price = Float.parseFloat(req.getParameter("price"));
             battery = Integer.parseInt(req.getParameter("battery"));
             size = Float.parseFloat(req.getParameter("screen.size"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Screen s = new Screen(0, technology, resolution, size);
             Phone p = new Phone(0, name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, os, battery, "", s,
                     price);
@@ -63,29 +62,26 @@ public class EditPhoneController extends HttpServlet {
         Screen screen = new Screen(screenId, technology, resolution, size);
         Phone phone = new Phone(id, name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, os, battery, null,
                 screen, price);
-        PhoneDAOTuan pd=new PhoneDAOTuanImpl();
+        PhoneDAOTuan pd = new PhoneDAOTuanImpl();
 
         String result = "Success";
         Part imagePart = req.getPart("image");
-        if(imagePart!=null && !imagePart.getSubmittedFileName().trim().isEmpty()){
-            String filename = imagePart.getSubmittedFileName();	//Ten moi cua file dung de upload len server
-            String image = UPLOAD_DIR + filename;							//Dung de luu vao DB
-            String fileLocation = req.getRealPath(UPLOAD_DIR) + filename;	//Vi tri cua file tren server
+        if (imagePart != null && !imagePart.getSubmittedFileName().trim().isEmpty()) {
+            String filename = imagePart.getSubmittedFileName();    //Ten moi cua file dung de upload len server
+            String image = UPLOAD_DIR + filename;                            //Dung de luu vao DB
+            String fileLocation = req.getServletContext().getRealPath(UPLOAD_DIR) + filename;    //Vi tri cua file tren server
             result = upload(imagePart, MAX_UPLOAD_SIZE, fileLocation);
             phone.setImage(image);
         }
 
-        if(result.equalsIgnoreCase("Success")){
-            boolean editResult = pd.update(phone);
-            if(!editResult) {	//Edit that bai
-                req.setAttribute("notification", "Fail");
-                req.setAttribute("phone", phone);
-                req.getRequestDispatcher("edit-phone.jsp").forward(req, resp);
-            }
-            else {									//Edit thanh cong ->
-                req.setAttribute("notification", "Success");
-                req.getRequestDispatcher("notification.jsp").forward(req, resp);
-            }
+        boolean editResult = pd.update(phone);
+        if (!editResult) {    //Edit that bai
+            req.setAttribute("notification", "Fail");
+            req.setAttribute("phone", phone);
+            req.getRequestDispatcher("edit-phone.jsp").forward(req, resp);
+        } else {                                    //Edit thanh cong ->
+            req.setAttribute("notification", "Success");
+            req.getRequestDispatcher("notification.jsp").forward(req, resp);
         }
 
     }
