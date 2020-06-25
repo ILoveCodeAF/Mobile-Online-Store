@@ -1,24 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: VA Tuan
+  Date: 24-Jun-20
+  Time: 11:38 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8">
     <script src="<c:url value='/static/js/jquery.js' />"></script>
-    <title>Add New Phone</title>
+    <title>Edit Phone</title>
 </head>
 <body>
 <%@include file="/admin/admin-menu.jsp" %>
-<h1>Add new Phone</h1>
+<h1>Edit Phone</h1>
 <h4 style="color: red">${notification}</h4>
-<form action="<c:url value='/admin/add-phone' />" method="POST"
+<form action="<c:url value='/admin/edit-phone' />" method="POST"
       enctype="multipart/form-data">
     <table>
         <tr>
             <td>Name:</td>
-            <td><input name="name" value="${phone.name }"
-                       required="required"></td>
+            <td><input type="hidden" name="id" value="${phone.id }"><input name="name" value="${phone.name }"
+                                                                           required="required"></td>
         </tr>
         <tr>
             <td>Manufacturer:</td>
@@ -72,7 +76,7 @@
         </tr>
         <tr>
             <td>Image:</td>
-            <td><input id="image" name="image" required="required" type="file">
+            <td><input id="image" name="image" type="file">
                 (JPG, PNG)
             </td>
         </tr>
@@ -99,7 +103,8 @@
         </tr>
         <tr>
             <td>Screen Size :</td>
-            <td><input name="screen.size" required="required"
+            <td><input type="hidden" name="screenId" value="${phone.screen.id }">
+                <input name="screen.size" required="required"
                        value="${phone.screen.size }" type="number" step="any" min="1">
                 (inch)
             </td>
@@ -125,7 +130,7 @@
             </td>
         </tr>
         <tr>
-            <td><input type="submit" value="Add new Phone"></td>
+            <td><input type="submit" value="Edit"></td>
         </tr>
     </table>
 </form>

@@ -86,8 +86,7 @@
 		}
 		
 		function updateCart(id, tag){
-			var select = '#'+id+' span:last';
-			
+			var select = '#'+id+' span:last';			
 			
 			
 			$.ajax({

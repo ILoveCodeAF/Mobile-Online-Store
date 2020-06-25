@@ -70,19 +70,19 @@ public class AddPhoneController extends HttpServlet {
 		Phone phone = new Phone(0, name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, os, battery, image,
 				screen, price);
 		
-		
 		PhoneDAOTuan pd=new PhoneDAOTuanImpl();
-		
-		phone = pd.add(phone);
-		if(phone==null || phone.getId()<=0) {	//Them that bai
-			req.setAttribute("phone", phone);
-			req.getRequestDispatcher("add-phone.jsp").forward(req, resp);
-		}
-		else {									//Them thanh cong ->
-			String result = upload(imagePart, MAX_UPLOAD_SIZE, fileLocation);
-			req.setAttribute("notification", result);
-			req.getRequestDispatcher("notification.jsp").forward(req, resp);
-			
+		String result = upload(imagePart, MAX_UPLOAD_SIZE, fileLocation);
+		if(result.equalsIgnoreCase("Success")){
+			phone = pd.add(phone);
+			if(phone==null || phone.getId()<=0) {	//Them that bai
+				req.setAttribute("notification", "Fail");
+				req.setAttribute("phone", phone);
+				req.getRequestDispatcher("add-phone.jsp").forward(req, resp);
+			}
+			else {									//Them thanh cong ->
+				req.setAttribute("notification", result);
+				req.getRequestDispatcher("notification.jsp").forward(req, resp);
+			}
 		}
 	}
 

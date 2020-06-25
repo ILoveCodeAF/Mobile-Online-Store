@@ -18,5 +18,7 @@ public interface PhoneDAOTuan {
 	public List<Phone> getNewestPhones(int quantity);
 	
 	public Phone getById(long id);
-	
+
+	public boolean update(Phone phone);
+	public boolean delete(Phone phone);
 }

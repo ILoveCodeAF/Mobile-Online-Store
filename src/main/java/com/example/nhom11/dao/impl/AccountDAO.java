@@ -7,6 +7,8 @@ import java.util.Date;
 
 import com.example.nhom11.dao.AccountDAOTuan;
 import com.example.nhom11.model.Account;
+import com.example.nhom11.model.Admin;
+import com.example.nhom11.model.Customer;
 import com.example.nhom11.model.Person;
 import com.example.nhom11.model.Role;
 import com.example.nhom11.utils.ConnectionPool;
@@ -44,9 +46,11 @@ public class AccountDAO implements AccountDAOTuan {
 			if (account != null) { // Ton tai tai khoan voi Username va Password tren
 				switch (account.getRole()) {
 				case CUSTOMER:
+					person = new Customer();
 					sqlPerson = "SELECT * FROM customer WHERE account_id = ?";
 					break;
 				case ADMIN:
+					person = new Admin();
 					sqlPerson = "SELECT * FROM admin WHERE account_id = ?";
 					break;
 				default:
@@ -57,7 +61,6 @@ public class AccountDAO implements AccountDAOTuan {
 				ps.setLong(1, account.getId());
 				rs=ps.executeQuery();
 				if(rs.next()) {
-					person = new Person();
 					person.setAccount(account);
 					person.setAddress(rs.getString("address"));
 					person.setEmail(rs.getString("email"));
@@ -65,6 +68,9 @@ public class AccountDAO implements AccountDAOTuan {
 					person.setName(rs.getString("name"));
 					person.setPhone(rs.getString("phone"));
 					person.setDob(new Date(rs.getDate("dob").getTime()));					
+				}
+				else {
+					person=null;
 				}
 
 			}
