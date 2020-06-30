@@ -15,7 +15,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/admin/delete-phone")
 public class DeletePhoneController extends HttpServlet {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.parseLong(req.getParameter("id"));
         PhoneDAOTuan phoneDAOTuan = new PhoneDAOTuanImpl();

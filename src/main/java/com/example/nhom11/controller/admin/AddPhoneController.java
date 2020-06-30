@@ -64,7 +64,7 @@ public class AddPhoneController extends HttpServlet {
 		Part imagePart = req.getPart("image");
 		String filename = getNewFileName(imagePart.getSubmittedFileName());	//Ten moi cua file dung de upload len server
 		String image = UPLOAD_DIR + filename;							//Dung de luu vao DB
-		String fileLocation = req.getRealPath(UPLOAD_DIR) + filename;	//Vi tri cua file tren server
+		String fileLocation = req.getServletContext().getRealPath(UPLOAD_DIR) + filename;	//Vi tri cua file tren server
 
 		Screen screen = new Screen(0, technology, resolution, size);
 		Phone phone = new Phone(0, name, manufacturer, rom, ram, cpu, frontCamera, behindCamera, os, battery, image,

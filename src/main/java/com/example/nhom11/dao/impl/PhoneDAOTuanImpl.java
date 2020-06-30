@@ -225,8 +225,6 @@ public class PhoneDAOTuanImpl implements PhoneDAOTuan {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection con=pool.getConnection();
         PreparedStatement ps=null;
-        ResultSet rs=null;
-
         try {
             con.setAutoCommit(false);
         } catch (SQLException e) {

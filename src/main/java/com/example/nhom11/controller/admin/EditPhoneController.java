@@ -18,7 +18,8 @@ import java.io.*;
 @MultipartConfig(maxFileSize = 2 * 1024 * 1024, maxRequestSize = 2 * 1024 * 1024) // Toi da 2 MB
 public class EditPhoneController extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "/static/image/phone/";
+	private static final long serialVersionUID = 1L;
+	private static final String UPLOAD_DIR = "/static/image/phone/";
     private static final long MAX_UPLOAD_SIZE = 1024 * 1024 * 2; // 2 MB
 
     @Override
@@ -70,7 +71,7 @@ public class EditPhoneController extends HttpServlet {
         if(imagePart!=null && !imagePart.getSubmittedFileName().trim().isEmpty()){
             String filename = imagePart.getSubmittedFileName();	//Ten moi cua file dung de upload len server
             String image = UPLOAD_DIR + filename;							//Dung de luu vao DB
-            String fileLocation = req.getRealPath(UPLOAD_DIR) + filename;	//Vi tri cua file tren server
+            String fileLocation = req.getServletContext().getRealPath(UPLOAD_DIR) + filename;	//Vi tri cua file tren server
             result = upload(imagePart, MAX_UPLOAD_SIZE, fileLocation);
             phone.setImage(image);
         }

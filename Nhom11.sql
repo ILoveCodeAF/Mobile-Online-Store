@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `googleId_UNIQUE` (`googleId`),
   UNIQUE KEY `fbId_UNIQUE` (`fbId`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (31,'admin','admin',NULL,NULL,'ADMIN'),(33,'tuan','tuan',NULL,NULL,'CUSTOMER');
+INSERT INTO `account` VALUES (31,'admin','admin',NULL,NULL,'ADMIN'),(33,'tuan','tuan',NULL,NULL,'CUSTOMER'),(34,NULL,NULL,'101559659748066677488',NULL,'CUSTOMER');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,6 +76,29 @@ INSERT INTO `admin` VALUES (1,'Vương Anh Tuấn','Trung Tú','tuanva@gmail.com
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `customer_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comment`
 --
 
@@ -93,7 +116,7 @@ CREATE TABLE `comment` (
   KEY `comment_cutomer_idx` (`customer_id`),
   CONSTRAINT `comment_cutomer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   CONSTRAINT `comment_phone` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +125,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'Comment Function Completed',18,15,'2020-06-20'),(2,'Add new Comment',18,15,'2020-06-20'),(3,'Add new Comment second time',18,15,'2020-06-20'),(4,'Comment third time',18,15,'2020-06-20');
+INSERT INTO `comment` VALUES (1,'Comment Function Completed',18,15,'2020-06-20'),(2,'Add new Comment',18,15,'2020-06-20'),(3,'Add new Comment second time',18,15,'2020-06-20'),(4,'Comment third time',18,15,'2020-06-20'),(5,'DT xin vai',18,15,'2020-06-26');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +145,7 @@ CREATE TABLE `customer` (
   `phone` varchar(11) DEFAULT NULL,
   `account_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,8 +154,35 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (15,'Vương Anh Tuấn','Trung Tú','tuanva@gmail.com',NULL,NULL,33);
+INSERT INTO `customer` VALUES (15,'Vương Anh Tuấn','Trung Tú','tuanva@gmail.com',NULL,NULL,33),(16,'VA Tuáº¥n',NULL,'tuanvuonganhtuan2@gmail.com',NULL,NULL,34);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `receivingType` varchar(45) NOT NULL,
+  `paymentType` varchar(45) NOT NULL,
+  `cart_id` bigint(20) NOT NULL,
+  `shipment_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -158,7 +208,7 @@ CREATE TABLE `phone` (
   `screen_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,6 +219,33 @@ LOCK TABLES `phone` WRITE;
 /*!40000 ALTER TABLE `phone` DISABLE KEYS */;
 INSERT INTO `phone` VALUES (1,'Xiaomi Redmi Note 4X','Xiaomi',32,3,'SnapDragon 625',5,13,'Android 6',4100,'/static/image/phone/1591367271811.jpg',173,1),(2,'Xiaomi Redmi Note 8','Xiaomi',32,3,'SnapDragon 665',13,48,'Android 9',4000,'/static/image/phone/1591373142572.png',192,2),(3,'OPPO A92','Oppo',128,6,'SnapDragon 665',16,12,'Android 10',5000,'/static/image/phone/1591507960206.jpg',299,3),(5,'Samsung Galaxy A21s (6GB/64GB)','Samsung',64,6,'Exynos 850 8 nhân',13,48,'Android 10',5000,'/static/image/phone/1591508353254.jpg',282,5),(7,'Samsung Galaxy A21s (3GB/32GB)','Samsung',32,3,'Exynos 850 8 nhân',13,48,'Android 10',5000,'/static/image/phone/1591508458147.png',232,7),(8,'OPPO Reno2 F','Oppo',128,8,'MediaTek Helio P70 8 nhân',16,48,'Android 9',4000,'/static/image/phone/1591508981219.png',319,8),(10,'OPPO Reno3','Oppo',128,8,'MediaTek Helio P90 8 nhân',44,48,'Android 10',4025,'/static/image/phone/1591509470082.png',331,10),(13,'Xiaomi Redmi Note 9S','Xiaomi',128,6,'Snapdragon 720G 8 nhân',16,48,'Android 10',5020,'/static/image/phone/1591509711303.jpg',222,13),(14,'Huawei Y9s','Huawei',128,6,'Kirin 710F 8 nhân',16,48,'Android 9.1',4000,'/static/image/phone/1591510174763.png',204,14),(15,'Vivo V19 Neo','Vivo',128,8,'Snapdragon 675 8 nhân',32,48,'Android 10',4500,'/static/image/phone/1591510437832.jpg',232,15),(16,'iPhone 7 Plus 32GB','Apple',32,3,'Apple A10 Fusion 4 nhân',7,12,'iOS 12',2900,'/static/image/phone/1591510816463.png',393,16),(17,'iPhone 8 Plus 64GB','Apple',64,3,'Apple A11 Bionic 6 nhân',7,12,'iOS 12',2691,'/static/image/phone/1591512786897.jpg',686,17),(18,'Samsung Galaxy A31','Samsung',128,6,'MediaTek MT6768 8 nhân (Helio P65)',20,48,'Android 10',5000,'/static/image/phone/1591524533380.jpg',299,18),(19,'Vivo V15 128GB','Vivo',128,6,'MediaTek Helio P70 8 nhân',32,12,'Android 9',4000,'/static/image/phone/1591525017046.jpg',186,19);
 /*!40000 ALTER TABLE `phone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `phoneselling`
+--
+
+DROP TABLE IF EXISTS `phoneselling`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `phoneselling` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `phone_id` bigint(20) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `cart_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pk_cart_phoneselling_idx` (`cart_id`),
+  CONSTRAINT `pk_cart_phoneselling` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phoneselling`
+--
+
+LOCK TABLES `phoneselling` WRITE;
+/*!40000 ALTER TABLE `phoneselling` DISABLE KEYS */;
+/*!40000 ALTER TABLE `phoneselling` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -184,7 +261,7 @@ CREATE TABLE `screen` (
   `resolution` varchar(45) NOT NULL,
   `technology` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,6 +273,32 @@ LOCK TABLES `screen` WRITE;
 INSERT INTO `screen` VALUES (1,5.5,'FHD','IPS'),(2,6.3,'FHD+','IPS, LCD'),(3,6.5,'FHD+','TFT LCD'),(5,6.5,'HD+','TFT LCD'),(7,6.5,'HD+','TFT LCD'),(8,6.5,'FHD+','AMOLED'),(10,6.4,'FHD+','AMOLED'),(13,6.67,'FHD+','IPS LCD'),(14,6.59,'FHD+','TFT'),(15,6.44,'FHD+','Super AMOLED'),(16,5.5,'Retina HD','LED-backlit IPS LCD'),(17,5.5,'Retina HD','LED-backlit IPS LCD'),(18,6.4,'FHD+','Super AMOLED'),(19,6.53,'FHD+','IPS LCD');
 /*!40000 ALTER TABLE `screen` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `shipment`
+--
+
+DROP TABLE IF EXISTS `shipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `shipment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `address` varchar(100) NOT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `price` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shipment`
+--
+
+LOCK TABLES `shipment` WRITE;
+/*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -206,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-20 19:04:40
+-- Dump completed on 2020-06-30 22:58:35
