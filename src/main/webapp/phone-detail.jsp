@@ -61,7 +61,7 @@
 				</tr>
 				<tr>
 					<td>Price:</td>
-					<td style="color: rgb(228, 64, 64);">${phone.price}USD</td>
+					<td style="color: rgb(228, 64, 64);">${phone.price} USD</td>
 				</tr>
 				<tr style="border-bottom: none;">
 					<td colspan="2"><a

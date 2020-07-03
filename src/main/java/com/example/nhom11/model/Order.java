@@ -10,6 +10,7 @@ public class Order {
 	private ReceivingType receivingType;
 	private PaymentType paymentType;
 	private Shipment shipment;
+	private float price;
 
 	public Order() {
 	}
@@ -70,6 +71,21 @@ public class Order {
 
 	public void setShipment(Shipment shipment) {
 		this.shipment = shipment;
-	}	
+	}
 	
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", date=" + date + ", cart=" + cart + ", receivingType=" + receivingType
+				+ ", paymentType=" + paymentType + ", shipment=" + shipment + "]";
+	}	
+		
 }

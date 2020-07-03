@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.nhom11.model.Cart;
+import com.example.nhom11.model.PaymentType;
 import com.example.nhom11.model.PhoneSelling;
+import com.example.nhom11.model.ReceivingType;
 
 @WebServlet(urlPatterns = "/cart")
 public class CartController extends HttpServlet {
@@ -27,7 +29,9 @@ public class CartController extends HttpServlet {
 			price+=phone.getPhone().getPrice()*phone.getQuantity();
 		}
 		
-		req.setAttribute("price", price);		
+		req.setAttribute("price", price);	
+		req.setAttribute("receivingTypes", ReceivingType.values());
+		req.setAttribute("paymentTypes", PaymentType.values());
 		req.getRequestDispatcher("cart.jsp").forward(req, resp);
 		
 	}

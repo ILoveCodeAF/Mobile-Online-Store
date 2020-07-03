@@ -61,6 +61,12 @@ public class Shipment {
 
 	public void setPrice(float price) {
 		this.price = price;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Shipment [id=" + id + ", address=" + address + ", phone=" + phone + ", date=" + date + ", price="
+				+ price + "]";
+	}
 
 }

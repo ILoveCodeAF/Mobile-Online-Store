@@ -40,7 +40,7 @@ public class DeleteFromCartController extends HttpServlet {
 		}
 		
 		resp.setContentType("application/json");
-		resp.getWriter().print(price);
+		resp.getWriter().print(String.format("{\"price\": %f}", price));
 		
 		
 	}

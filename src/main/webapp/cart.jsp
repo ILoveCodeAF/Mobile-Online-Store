@@ -42,11 +42,13 @@
 				<div class="price parent">
 					<p class="child">${phone.phone.price } USD</p>
 					<div class="child">
-						<button onclick="updateCart(${phone.phone.id}, 1)" class="link transprent common-color" type="button">
+						<button onclick="updateCart(${phone.phone.id}, 1)"
+							class="link transprent common-color" type="button">
 							<i class="fa fa-minus" aria-hidden="true"></i>
 						</button>
 						<span>${phone.quantity }</span>
-						<button onclick="updateCart(${phone.phone.id}, 2)" class="link transprent common-color" type="button">
+						<button onclick="updateCart(${phone.phone.id}, 2)"
+							class="link transprent common-color" type="button">
 							<i class="fa fa-plus" aria-hidden="true"></i>
 						</button>
 					</div>
@@ -62,23 +64,101 @@
 				<p class="child" style="top: 50px;">Promotion</p>
 				<p class="child" style="top: 100px;">Total Price</p>
 			</div>
-			<div class="price parent">
+			<div class="parent price">
 				<p id="promotion" class="child" style="top: 50px;">0</p>
 				<p id="totalPrice" class="child" style="top: 100px;">${price }
 					USD</p>
 			</div>
 		</div>
-		<button class="order link" type="button">Order</button>
+		<form class="form" action="order" method="POST" id="orderForm">
+			<table>
+				<tr>
+					<td>Receiving Type:</td>
+					<td><select onchange="receivingTypeChange()"
+						id="receivingType" name="receivingType">
+							<option value="">SELECT</option>
+							<c:forEach var="receivingType" items="${receivingTypes }">
+								<option value="${receivingType }">${receivingType }</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Payment Type:</td>
+					<td><select id="paymentType" name="paymentType">
+							<option value="">SELECT</option>
+							<c:forEach var="paymentType" items="${paymentTypes }">
+								<option value="${paymentType }">${paymentType }</option>
+							</c:forEach>
+					</select></td>
+				</tr>
+
+			</table>
+			<table id="shipment">
+			</table>
+			<input class="order link" type="button" value="Order"
+				onclick="submitForm()" />
+		</form>
+
 	</section>
 
 	<script>
+	
+		function receivingTypeChange(){
+			var value = $("#receivingType").val();
+			if(value=="SHIPPING"){
+				var content = "";
+				content += "<tr>"
+					+"<td>Address: </td>"
+					+"<td><input id='address' name='address' ></td>"
+					+"</tr>"
+					+"<tr>"
+					+"<td>Phone: </td>"
+					+"<td><input id='phone' name='phone' ></td>"
+					+"</tr>"
+					;
+				$("#shipment").html(content);
+			}
+			else{
+				$("#shipment").html("");
+			}
+			
+		}
+	
+		function submitForm(){
+			
+			if($("#receivingType").val()=="" || $("#paymentType").val()==""){
+				alert("Please fill out all information");
+			}
+			else{
+				if($("#receivingType").val()=="SHIPPING"){
+					var phone = $("#phone").val().trim();
+					var address = $("#address").val().trim();
+					var regex = new RegExp("0[0-9]{9,10}");
+					
+					if(address.length<10 || !regex.test(phone) || phone.length>11){
+						alert("Please fill out all information");
+					}
+					else{
+						$("#orderForm").submit();
+					}
+					
+				}
+				else{
+					$("#orderForm").submit();
+				}
+				
+			}
+			
+			
+		}
 	
 		function deletePhone(id){
 			var select = '#'+id;
 			$.ajax({
 				   url: 'cart-delete?phoneId='+id,
+					datatype: 'json', 
 				   success: function(data) {
-						$('#totalPrice').text(data+" USD");
+						$('#totalPrice').text(data.price+" USD");
 						$(select).remove();
 				   },
 				   type: 'GET'

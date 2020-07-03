@@ -13,6 +13,16 @@ ul li {
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.form{
+	display: inline-block;
+	text-align: center;
+	width: 800px;
+}
+
+.form table{
+	width: inherit;
+}
+
 .phone {
 	width: 800px;
 	height: 200px;

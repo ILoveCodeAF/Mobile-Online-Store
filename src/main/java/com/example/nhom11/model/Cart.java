@@ -39,6 +39,9 @@ public class Cart {
 	public void addPhone(PhoneSelling phone) {
 		this.getPhones().add(phone);
 	}
-	
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", customer=" + customer + ", phones=" + phones + "]";
+	}
 	
 }

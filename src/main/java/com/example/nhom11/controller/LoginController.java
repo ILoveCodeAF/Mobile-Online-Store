@@ -23,7 +23,7 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String google = String.format("https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://%s:8080/SmartPhoneStoreOnline/login-google&response_type=code&client_id=660596394116-n5kd2jlllnt70f0al7r40ncjmvi9kum5.apps.googleusercontent.com&approval_prompt=force", Server.IP);
-		String fb = String .format("https://www.facebook.com/dialog/oauth?client_id=2925420967573361&redirect_uri=https://%s:%d/SmartPhoneStoreOnline/login-facebook&scope=email", Server.IP, Server.PORT);
+		String fb = String .format("https://www.facebook.com/dialog/oauth?client_id=2925420967573361&redirect_uri=http://%s:%d/SmartPhoneStoreOnline/login-facebook&scope=email", Server.IP, Server.PORT);
 		
 		req.setAttribute("google", google);
 		req.setAttribute("fb", fb);
